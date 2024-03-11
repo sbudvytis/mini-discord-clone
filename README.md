@@ -1,7 +1,7 @@
 ## Dentist scheduler application
 
 <p align="center">
-<img src="https://github.com/TuringCollegeSubmissions/sbudvy-WD.4B.1.5/blob/main/src/assets/preview.png">
+<img src="https://github.com/sbudvytis/mini-discord-clone/blob/master/src/assets/preview.png">
 </p>
 
 This is a simple mini Discord clone, where user can connect to the server and chat with others in real time. Upon connection, user must select avatar and their username. The user is then welcomed in `welcome` channel with a welcome message.
