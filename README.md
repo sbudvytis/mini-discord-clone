@@ -1,4 +1,4 @@
-## Dentist scheduler application
+## Mini Discord clone application
 
 <p align="center">
 <img src="https://github.com/sbudvytis/mini-discord-clone/blob/master/src/assets/preview.png">
