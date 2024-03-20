@@ -1,5 +1,4 @@
 import { Button, TextInput } from 'flowbite-react'
-import { socket } from '@/libs/socket'
 import avatar1 from '@/assets/avatars/avatar1.png'
 import avatar2 from '@/assets/avatars/avatar2.png'
 import avatar3 from '@/assets/avatars/avatar3.png'
@@ -15,13 +14,8 @@ function Connection({
   usernameInput,
   setUsernameInput,
   selectedAvatar,
-  setSelectedAvatar,
+  handleAvatarSelect,
 }) {
-  const handleAvatarSelect = avatar => {
-    setSelectedAvatar(avatar)
-    socket.emit('user:avatar:select', avatar)
-  }
-
   const handleKeyPress = event => {
     if (event.key === 'Enter') {
       handleConnectButtonClick()

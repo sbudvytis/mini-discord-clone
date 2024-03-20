@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { socket } from '@/libs/socket'
-import { useSocket } from '@/hooks/useSocket'
+import { useDiscordSockets } from '@/hooks/useDiscordSockets'
 import Message from './Message'
 import Input from './Input'
 import Header from './Header'
@@ -11,10 +11,17 @@ import { Flowbite } from 'flowbite-react'
 function App() {
   const [inputMessage, setInputMessage] = useState('')
   const [usernameInput, setUsernameInput] = useState('')
-  const [selectedAvatar, setSelectedAvatar] = useState(null)
 
-  const { isConnected, channels, currentChannel, messages, onlineUsers, setCurrentChannel } =
-    useSocket()
+  const {
+    isConnected,
+    channels,
+    currentChannel,
+    messages,
+    onlineUsers,
+    setCurrentChannel,
+    selectedAvatar,
+    handleAvatarSelect,
+  } = useDiscordSockets()
 
   const joinChannel = channelName => {
     socket.emit('message:channel:join', channelName)
@@ -51,7 +58,7 @@ function App() {
           usernameInput={usernameInput}
           setUsernameInput={setUsernameInput}
           selectedAvatar={selectedAvatar}
-          setSelectedAvatar={setSelectedAvatar}
+          handleAvatarSelect={handleAvatarSelect}
         />
 
         <div className="flex-1 flex flex-col justify-end">

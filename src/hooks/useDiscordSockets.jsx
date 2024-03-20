@@ -1,12 +1,18 @@
 import { useState, useEffect } from 'react'
 import { socket } from '@/libs/socket'
 
-export const useSocket = () => {
+export const useDiscordSockets = () => {
   const [isConnected, setIsConnected] = useState(socket.connected)
   const [channels, setChannels] = useState([])
   const [currentChannel, setCurrentChannel] = useState('welcome')
   const [messages, setMessages] = useState({})
   const [onlineUsers, setOnlineUsers] = useState([])
+  const [selectedAvatar, setSelectedAvatar] = useState(null)
+
+  const handleAvatarSelect = avatar => {
+    setSelectedAvatar(avatar)
+    socket.emit('user:avatar:select', avatar)
+  }
 
   useEffect(() => {
     socket.on('connect', () => {
@@ -56,16 +62,21 @@ export const useSocket = () => {
       })
     })
 
+    socket.on('previousMessages', previousMessages => {
+      setMessages(previousMessages)
+    })
+
     return () => {
-      socket.off('connect')
-      socket.off('disconnect')
-      socket.off('channels')
-      socket.off('user:avatar:update')
-      socket.off('message:channel')
-      socket.off('message:channel:send')
-      socket.off('users')
-      socket.off('user:join')
-      socket.off('user:disconnect')
+      socket.off('connect', setIsConnected)
+      socket.off('disconnect', setIsConnected)
+      socket.off('channels', setChannels)
+      socket.off('user:avatar:update', setOnlineUsers)
+      socket.off('message:channel', handleChannelMessage)
+      socket.off('message:channel:send', handleChannelMessage)
+      socket.off('users', setOnlineUsers)
+      socket.off('user:join', setOnlineUsers)
+      socket.off('user:disconnect', setOnlineUsers)
+      socket.off('previousMessages', setMessages)
     }
   }, [])
 
@@ -77,5 +88,7 @@ export const useSocket = () => {
     onlineUsers,
     setCurrentChannel,
     setMessages,
+    selectedAvatar,
+    handleAvatarSelect,
   }
 }

@@ -7,8 +7,7 @@ function OnlineUsers({ onlineUsers }) {
 
   return (
     <aside
-      className={`transition-all ${expanded ? 'w-64 bg-slate-100 dark:bg-slate-800 rounded-l-lg drop-shadow-3xl' : 'w-20'} ${window.innerWidth <= 768 ? 'fixed right-0' : ''} mt-4 mb-4`}
-      style={{ height: 'calc(100vh - 2rem)' }}
+      className={`transition-all ${expanded ? 'w-64 bg-slate-100 dark:bg-slate-800 rounded-r-lg drop-shadow-3xl' : 'w-20'} md:relative fixed right-0 mt-4 mb-4 h-[calc(100vh-2rem)]`}
     >
       <div className="h-full flex flex-col p-4 overflow-auto">
         <div className="p-4 pt-2 flex items-center">

@@ -66,6 +66,12 @@ io.on('connection', socket => {
     connected: true,
   }
 
+  const previousMessages = channels.reduce((prev, channel) => {
+    prev[channel.name] = channel.messages
+    return prev
+  }, {})
+  socket.emit('previousMessages', previousMessages)
+
   sessions.setSession(socket.sessionId, currentSession)
   socket.emit('session', currentSession)
 
@@ -73,6 +79,13 @@ io.on('connection', socket => {
   socket.join(currentSession.userId)
 
   if (!userSession) {
+    // Emit welcome messages history to the new user before announcing their join
+    const welcomeMessagesHistory =
+      channels.find(channel => channel.name === WELCOME_CHANNEL)?.messages || []
+    welcomeMessagesHistory.forEach(message => {
+      socket.emit('message:channel', WELCOME_CHANNEL, message)
+    })
+
     // Announce when user joins the server for the first time
     socket.in(WELCOME_CHANNEL).emit('user:join', {
       userId: currentSession.userId,
