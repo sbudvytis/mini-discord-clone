@@ -14,20 +14,6 @@ This is a simple mini Discord clone, where user can connect to the server and ch
 - Users can disconnect from the server.
 - Switch between light and dark mode.
 
-## Setup
-
-1. Clone the repository or download the source code files:
-
-```bash
-git clone https://github.com/TuringCollegeSubmissions/sbudvy-WD.4B.1.5.git
-```
-
-2. Install all the packages:
-
-```bash
-npm install
-```
-
 ## Running the server
 
 ```bash
